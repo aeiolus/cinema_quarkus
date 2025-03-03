@@ -7,7 +7,6 @@ import jakarta.transaction.Transactional;
 import com.cinema.api.model.Film;
 
 @ApplicationScoped
-@Transactional
 public class FilmRepository implements PanacheRepository<Film> {
     
 }
