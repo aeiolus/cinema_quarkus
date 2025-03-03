@@ -1,27 +1,62 @@
-# CinemaManagementFrontend
+# cinema
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.6.
+This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
-## Development server
+If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Running the application in dev mode
 
-## Code scaffolding
+You can run your application in dev mode that enables live coding using:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```shell script
+./mvnw quarkus:dev
+```
 
-## Build
+> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Packaging and running the application
 
-## Running unit tests
+The application can be packaged using:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```shell script
+./mvnw package
+```
 
-## Running end-to-end tests
+It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
+Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
 
-## Further help
+If you want to build an _über-jar_, execute the following command:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```shell script
+./mvnw package -Dquarkus.package.jar.type=uber-jar
+```
+
+The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
+
+## Creating a native executable
+
+You can create a native executable using:
+
+```shell script
+./mvnw package -Dnative
+```
+
+Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
+
+```shell script
+./mvnw package -Dnative -Dquarkus.native.container-build=true
+```
+
+You can then execute your native executable with: `./target/cinema-1.0.0-SNAPSHOT-runner`
+
+If you want to learn more about building native executables, please consult <https://quarkus.io/guides/maven-tooling>.
+
+## Provided Code
+
+### REST
+
+Easily start your REST Web Services
+
+[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
