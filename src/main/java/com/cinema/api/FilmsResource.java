@@ -6,10 +6,12 @@ import java.util.List;
 import com.cinema.api.model.Film;
 import com.cinema.api.model.Film.StateEnum;
 
+import io.smallrye.common.annotation.NonBlocking;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.ws.rs.core.Response;
 
+@NonBlocking
 public class FilmsResource implements FilmsApi {
 
     @Override
