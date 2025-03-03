@@ -14,6 +14,8 @@ servers:
 components:
   schemas:
     Film:
+      # allOf: # Combines the BasicErrorModel and the inline model
+        # - $ref: "#/io/quarkus/hibernate/orm/panache/PanacheEntity"
       type: object
       properties:
         id:

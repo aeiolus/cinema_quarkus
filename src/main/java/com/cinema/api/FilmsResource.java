@@ -5,14 +5,23 @@ import java.util.List;
 
 import com.cinema.api.model.Film;
 import com.cinema.api.model.Film.StateEnum;
+import com.cinema.service.FilmService;
 
 import io.smallrye.common.annotation.NonBlocking;
+import io.smallrye.common.annotation.RunOnVirtualThread;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.ws.rs.core.Response;
 
 @NonBlocking
+@RunOnVirtualThread
 public class FilmsResource implements FilmsApi {
+
+    private final FilmService filmService;
+
+    public FilmsResource(FilmService filmService) {
+        this.filmService = filmService;
+    }
 
     @Override
     public Response activateFilm(Long id) {
@@ -46,7 +55,8 @@ public class FilmsResource implements FilmsApi {
 
     @Override
     public Response listFilms() {
-        return Response.ok(List.of(new Film(1L, "Fight club", "Don't talk about it", StateEnum.ACTIVE, new Date(0), new Date(0)))).build();
+        return Response.ok(filmService.getAllFilms()).build();
+        // return Response.ok(List.of(new Film(1L, "Fight club", "Don't talk about it", StateEnum.ACTIVE, new Date(0), new Date(0)))).build();
     }
 
     @Override
