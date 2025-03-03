@@ -4,11 +4,13 @@ import com.cinema.api.model.Film;
 import com.cinema.repository.FilmRepository;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.transaction.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @ApplicationScoped
+@Transactional
 public class FilmService {
     private final FilmRepository filmRepository;
 

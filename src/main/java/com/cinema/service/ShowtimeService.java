@@ -5,6 +5,7 @@ import com.cinema.api.model.Showtime;
 import com.cinema.repository.ShowtimeRepository;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.transaction.Transactional;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -12,6 +13,7 @@ import java.time.ZonedDateTime;
 import java.util.List;
 
 @ApplicationScoped
+@Transactional
 public class ShowtimeService {
     private final ShowtimeRepository showtimeRepository;
 
