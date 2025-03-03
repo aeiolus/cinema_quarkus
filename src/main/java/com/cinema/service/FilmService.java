@@ -3,6 +3,7 @@ package com.cinema.service;
 import com.cinema.api.model.Film;
 import com.cinema.repository.FilmRepository;
 
+import io.smallrye.common.annotation.Blocking;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 

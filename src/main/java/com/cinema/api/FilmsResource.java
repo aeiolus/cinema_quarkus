@@ -1,19 +1,13 @@
 package com.cinema.api;
 
-import java.sql.Date;
-import java.util.List;
-
 import com.cinema.api.model.Film;
-import com.cinema.api.model.Film.StateEnum;
 import com.cinema.service.FilmService;
 
-import io.smallrye.common.annotation.NonBlocking;
 import io.smallrye.common.annotation.RunOnVirtualThread;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.ws.rs.core.Response;
 
-@NonBlocking
 @RunOnVirtualThread
 public class FilmsResource implements FilmsApi {
 
