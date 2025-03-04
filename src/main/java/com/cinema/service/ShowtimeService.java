@@ -33,4 +33,7 @@ public class ShowtimeService {
                 StateEnum.ACTIVE, startOfDay, endOfDay);
     }
 
+    public void deleteByFilm(Long id) {
+        showtimeRepository.deleteByFilm(id);}
+
 }

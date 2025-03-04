@@ -66,6 +66,7 @@ public class FilmsResource implements FilmsApi {
 
     @Override
     public Response updateFilm(Long id, @Valid @NotNull Film film) {
+        film.setId(id);
         return Response.ok(filmService.saveFilm(film)).build();
     }
     

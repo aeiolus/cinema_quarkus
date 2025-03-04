@@ -13,9 +13,11 @@ import java.util.Optional;
 @Transactional
 public class FilmService {
     private final FilmRepository filmRepository;
+    private final ShowtimeService showtimeService;
 
-    public FilmService(FilmRepository filmRepository) {
+    public FilmService(FilmRepository filmRepository, ShowtimeService showtimeService) {
         this.filmRepository = filmRepository;
+        this.showtimeService = showtimeService;
     }
 
     public List<Film> getAllFilms() {
@@ -27,11 +29,16 @@ public class FilmService {
     }
 
     public Film saveFilm(Film film) {
-        filmRepository.persist(film);
-        return film;
+        if (film.getId() == null) {
+            filmRepository.persist(film);
+            return film;
+        } else {
+            return filmRepository.merge(film);
+        }
     }
 
     public void deleteFilm(Long id) {
+        showtimeService.deleteByFilm(id);
         filmRepository.deleteById(id);
     }
 }
