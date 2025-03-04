@@ -22,8 +22,8 @@ public class FilmService {
         return filmRepository.findAll().list();
     }
 
-    public Film getFilm(Long id) {
-        return Optional.ofNullable(filmRepository.findById(id)).orElse(null);
+    public Optional<Film> getFilm(Long id) {
+        return Optional.ofNullable(filmRepository.findById(id));
     }
 
     public Film saveFilm(Film film) {

@@ -60,7 +60,7 @@ components:
           x-extra-annotation: "@jakarta.persistence.ManyToOne(fetch = jakarta.persistence.FetchType.EAGER) @jakarta.persistence.JoinColumn(name = \"film_id\")"
         startTime:
           type: string
-          format: date-time
+          format: zoned-date-time
           description: Start time of the film showing
         createdAt:
           type: string

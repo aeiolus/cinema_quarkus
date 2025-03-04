@@ -1,12 +1,14 @@
 package com.cinema.api;
 
 import com.cinema.api.model.Film;
+import com.cinema.api.model.Film.StateEnum;
 import com.cinema.service.FilmService;
 
 import io.smallrye.common.annotation.RunOnVirtualThread;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
 
 @RunOnVirtualThread
 public class FilmsResource implements FilmsApi {
@@ -19,44 +21,52 @@ public class FilmsResource implements FilmsApi {
 
     @Override
     public Response activateFilm(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'activateFilm'");
+        return filmService.getFilm(id)
+                .map(film -> {
+                    film.setState(StateEnum.ACTIVE);
+                    filmService.saveFilm(film);
+                    return Response.ok();
+                })
+                .orElse(Response.status(Status.NOT_FOUND)).build();
     }
 
     @Override
     public Response addFilm(@Valid @NotNull Film film) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addFilm'");
+        film.setState(StateEnum.OPEN);
+        return Response.ok(filmService.saveFilm(film)).build();
     }
 
     @Override
     public Response deactivateFilm(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deactivateFilm'");
+        return filmService.getFilm(id)
+                .map(film -> {
+                    film.setState(StateEnum.INACTIVE);
+                    filmService.saveFilm(film);
+                    return Response.ok();
+                })
+                .orElse(Response.status(Status.NOT_FOUND)).build();
     }
 
     @Override
     public Response deleteFilm(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteFilm'");
+        filmService.deleteFilm(id);
+        return Response.noContent().build();
     }
 
     @Override
     public Response getFilm(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getFilm'");
+        return Response.ok(filmService.getFilm(id).orElseThrow(()
+                -> new IllegalArgumentException("Film not found"))).build();
     }
 
     @Override
     public Response listFilms() {
         return Response.ok(filmService.getAllFilms()).build();
-        // return Response.ok(List.of(new Film(1L, "Fight club", "Don't talk about it", StateEnum.ACTIVE, new Date(0), new Date(0)))).build();
     }
 
     @Override
     public Response updateFilm(Long id, @Valid @NotNull Film film) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateFilm'");
+        return Response.ok(filmService.saveFilm(film)).build();
     }
     
 }
